@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Error</title>
+</head>
+<body>
+<h1>Sorry, something has gone rong</h1>
+
+<tr>
+    <td>Date</td>
+    <td th:text=“${timestamp}“/>
+</tr>
+<tr>
+    <td>Path</td>
+    <td th:text=“${path}“/>
+</tr>
+<tr>
+    <td>Error</td>
+    <td th:text=“${error}“/>
+</tr>
+<tr>
+    <td>Status</td>
+    <td th:text=“${status}“/>
+</tr>
+<tr>
+    <td>Message</td>
+    <td th:text=“${message}“/>
+</tr>
+
+</body>
+</html>
