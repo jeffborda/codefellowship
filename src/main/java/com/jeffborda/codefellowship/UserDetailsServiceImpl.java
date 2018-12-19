@@ -27,8 +27,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
         System.out.println("Found user: " + appUser);
 
-        UserDetails userDetails = new User(appUser.username, appUser.password, new ArrayList<>());
-
-        return userDetails;
+        return appUser;
     }
 }
