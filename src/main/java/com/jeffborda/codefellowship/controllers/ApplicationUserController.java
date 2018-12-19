@@ -3,6 +3,7 @@ package com.jeffborda.codefellowship.controllers;
 import com.jeffborda.codefellowship.ApplicationUser;
 import com.jeffborda.codefellowship.ApplicationUserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -10,11 +11,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Optional;
 
+// Credit stack overflow - find http
 @ResponseStatus(value = HttpStatus.NOT_FOUND)
-public class ResourceNotFoundException extends RuntimeException {
-
+class ResourceNotFoundException extends RuntimeException {
 }
 
 
@@ -40,14 +43,13 @@ public class ApplicationUserController {
     public RedirectView createUser(
             @RequestParam String firstName,
             @RequestParam String lastName,
-            @RequestParam String dateOfBirth,
+            @RequestParam @DateTimeFormat(pattern="yyyy-MM-dd") Date dateOfBirth,
             @RequestParam String bio,
             @RequestParam String username,
             @RequestParam String password) {
 
         ApplicationUser newUser = new ApplicationUser(username, bCryptPasswordEncoder.encode(password), firstName, lastName, dateOfBirth, bio);
         appUserRepo.save(newUser);
-        //new DateFormat("yyyy-mm-dd").parse(dateOfBirth)
 
         return new RedirectView("/users/" + newUser.id);
     }
@@ -62,6 +64,7 @@ public class ApplicationUserController {
         throw new ResourceNotFoundException();
 
     }
+
 
 
 

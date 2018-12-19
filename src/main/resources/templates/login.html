@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
     <title>Login</title>
+    <div th:replace="~{common :: head}"></div>
 </head>
+<nav>
+    <div th:replace="common :: nav"></div>
+</nav>
 <body>
-
     <h1>Please Login for Your Safety</h1>
     <form method="POST">
         <label name="username" id="username" />
