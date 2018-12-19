@@ -1,14 +1,17 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
     <title>Sign Up to Code Fellowship</title>
+    <div th:replace="~{common :: head}"></div>
 </head>
+<nav>
+    <div th:replace="common :: nav"></div>
+</nav>
 <body>
     <h1>Code Fellowship</h1>
     <p>Sign up to create an account.</p>
 
-    <form action="/newUser" method="POST">
+    <form action="/users/newuser" method="POST">
         <label for="firstName">First Name</label>
         <input type="text" name="firstName" id="firstName"/>
 
@@ -16,7 +19,7 @@
         <input type="text" name="lastName" id="lastName" />
 
         <label for="dateOfBirth">Date of Birth</label>
-        <input type="text" name="dateOfBirth" id="dateOfBirth" />
+        <input type="date" name="dateOfBirth" id="dateOfBirth" />
 
         <label for="bio">Your Bio</label>
         <input type="text" name="bio" id="bio" />

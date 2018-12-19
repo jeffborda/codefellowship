@@ -2,10 +2,16 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Your Profile</title>
+    <div th:replace="~{common :: head}"></div>
 
 </head>
+<nav>
+    <div th:replace="common :: nav"></div>
+</nav>
 <body>
     <h1>Your Profile</h1>
+
+    <img src="/images/bracket-image.png" alt="html brackets image" id="profile-image"/>
     <ul>
         <li th:text="${user.firstName}"></li>
         <li th:text="${user.lastName}"></li>
