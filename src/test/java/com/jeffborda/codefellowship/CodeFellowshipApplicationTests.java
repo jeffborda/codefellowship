@@ -12,7 +12,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class CodeFellowshipApplicationTests {
 
 	@LocalServerPort
@@ -23,10 +23,12 @@ public class CodeFellowshipApplicationTests {
 
 	@Test
 	public void contextLoads() {
+		assertThat(controller).isNotNull();
 	}
 
 	@Test
 	public void homepageLoad() {
+		//***FUTURE THINGS TO TEST:
 		//make a get request to "/"
 		//get a response
 		//  response not null
@@ -38,6 +40,7 @@ public class CodeFellowshipApplicationTests {
 
 	@Autowired
 	private TestRestTemplate restTemplate;
+
 	@Test
 	public void testGreetingMessage() throws Exception {
 		assertThat(this.restTemplate.getForObject("http://localhost:" + port + "/", String.class)).contains("Welcome to Code Fellowship");
