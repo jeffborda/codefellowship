@@ -5,13 +5,17 @@ import com.jeffborda.codefellowship.ApplicationUserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 
-import java.util.Calendar;
+import java.security.Principal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Optional;
 
@@ -33,13 +37,19 @@ public class ApplicationUserController {
         return "index";
     }
 
+    @RequestMapping(value="/login", method=RequestMethod.GET)
+    public String login() {
+
+        return "login";
+    }
+
     @RequestMapping(value="/signup", method=RequestMethod.GET)
     public String signUp() {
 
         return "signup";
     }
 
-    @RequestMapping(value="/users/newuser", method=RequestMethod.POST)
+    @RequestMapping(value="/signup", method=RequestMethod.POST)
     public RedirectView createUser(
             @RequestParam String firstName,
             @RequestParam String lastName,
@@ -51,7 +61,18 @@ public class ApplicationUserController {
         ApplicationUser newUser = new ApplicationUser(username, bCryptPasswordEncoder.encode(password), firstName, lastName, dateOfBirth, bio);
         appUserRepo.save(newUser);
 
-        return new RedirectView("/users/" + newUser.id);
+        Authentication authentication = new UsernamePasswordAuthenticationToken(newUser, null, new ArrayList<>());
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+
+//        return new RedirectView("/users/" + newUser.id);
+        return new RedirectView("/");
+    }
+
+    @GetMapping(value="/myprofile")
+    public String showProfile(Principal p, Model m) {
+        m.addAttribute("user", ((UsernamePasswordAuthenticationToken) p).getPrincipal());
+        System.out.println(p);
+        return "profile";
     }
 
     @RequestMapping(value="/users/{id}", method=RequestMethod.GET)

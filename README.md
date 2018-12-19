@@ -20,6 +20,12 @@ spring.jpa.generate-ddl=true
 spring.jpq.hibernate.ddl-auto=create
 ```
 
+## How to Run with Gradle
+
+From the terminal, use command:
+
+`./gradlew bootrun`
+
 
 ## Credits
 
