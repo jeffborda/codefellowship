@@ -3,14 +3,19 @@ package com.jeffborda.codefellowship.controllers;
 import com.jeffborda.codefellowship.ApplicationUser;
 import com.jeffborda.codefellowship.ApplicationUserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
+
+import java.util.Optional;
+
+@ResponseStatus(value = HttpStatus.NOT_FOUND)
+public class ResourceNotFoundException extends RuntimeException {
+
+}
 
 
 @Controller
@@ -31,7 +36,7 @@ public class ApplicationUserController {
         return "signup";
     }
 
-    @RequestMapping(value="/newUser", method=RequestMethod.POST)
+    @RequestMapping(value="/users/newuser", method=RequestMethod.POST)
     public RedirectView createUser(
             @RequestParam String firstName,
             @RequestParam String lastName,
@@ -42,14 +47,20 @@ public class ApplicationUserController {
 
         ApplicationUser newUser = new ApplicationUser(username, bCryptPasswordEncoder.encode(password), firstName, lastName, dateOfBirth, bio);
         appUserRepo.save(newUser);
+        //new DateFormat("yyyy-mm-dd").parse(dateOfBirth)
 
-        return new RedirectView("/profile/" + newUser.id);
+        return new RedirectView("/users/" + newUser.id);
     }
 
-    @RequestMapping(value="/profile/{id}", method=RequestMethod.GET)
+    @RequestMapping(value="/users/{id}", method=RequestMethod.GET)
     public String showProfile(@PathVariable Long id, Model m) {
-        m.addAttribute("user", appUserRepo.findById(id).get());
-        return "profile";
+        Optional<ApplicationUser> u = appUserRepo.findById(id);
+        if(u.isPresent()) {
+            m.addAttribute("user", appUserRepo.findById(id).get());
+            return "profile";
+        }
+        throw new ResourceNotFoundException();
+
     }
 
 

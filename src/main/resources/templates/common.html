@@ -2,9 +2,14 @@
 
 <html xmlns:th="http://www.thymeleaf.org">
 <body>
-<div th:fragment="head">
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link th:href="@{/style.css}"href="/style.css" rel="stylesheet" />
-</div>
+    <div th:fragment="head">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link th:href="@{/style.css}"href="/style.css" rel="stylesheet" />
+    </div>
+
+    <nav th:fragment="nav">
+        <a href="/">Home</a>
+        <a href="/users">Users</a>
+    </nav>
 </body>
 </html>
