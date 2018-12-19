@@ -10,8 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
-
-import java.util.Calendar;
 import java.util.Date;
 import java.util.Optional;
 
@@ -31,6 +29,12 @@ public class ApplicationUserController {
     public String rootRoute() {
 
         return "index";
+    }
+
+    @RequestMapping(value="/login", method=RequestMethod.GET)
+    public String login() {
+
+        return "login";
     }
 
     @RequestMapping(value="/signup", method=RequestMethod.GET)
