@@ -11,7 +11,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 @EnableWebSecurity
@@ -43,6 +42,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                     //.antMatchers("/admin/**").hasRole("ADMIN")
                     //.antMatchers("/anonymous*").anonymous()
+                    .antMatchers("/style.css").permitAll()
                     .antMatchers("/").permitAll()
                     .antMatchers("/login*").permitAll()
                     .antMatchers("/signup*").permitAll()
@@ -53,7 +53,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .loginPage("/login.html")
                     .loginProcessingUrl("/perform_login")
                     .defaultSuccessUrl("/myprofile", true)
-                    .failureUrl("/login.html?error=true")
+                //maybe make a bad login page with another login form
+                    .failureUrl("/login")
                     //.failureHandler(authenticationFailureHandler())
                 .and()
                 .logout()

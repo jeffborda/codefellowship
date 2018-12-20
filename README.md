@@ -4,6 +4,12 @@ Code Fellowship is a page where people learning to code can collaborate, exchang
 
 This is a full stack Java app design with Spring, and includes features such as authentication.
 
+# Features
+* Homepage displays basic info about the site and includes links to login and sign up.
+* Authentication: Users can create an account to login.  Password hashed with BCrypt.
+* Profile page: Each user has a profile page that displays their info.
+* Posts: Users can post messages on their profile that others can view. 
+
 ## How to Setup Project
 
 In order to run, you must have a file called: ```application.properties``` inside the directory: ```/src/main/resources```.
@@ -24,10 +30,11 @@ spring.jpq.hibernate.ddl-auto=create
 
 From the terminal, use command:
 
-`./gradlew bootrun`
+`./gradlew bootRun`
 
 
 ## Credits
 
 * Code bracket image from pixabay: https://pixabay.com/en/html-icon-web-development-design-2188441/
 * Error handling with `ResourceNotFoundException` class: https://stackoverflow.com/questions/2066946/trigger-404-in-spring-mvc-controller?rq=1
+* Thymeleaf custom error page: https://www.logicbig.com/tutorials/spring-framework/spring-boot/custom-thymeleaf-error-page.html

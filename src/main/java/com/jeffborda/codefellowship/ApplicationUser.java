@@ -6,11 +6,12 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Date;
+import java.util.Set;
 
 @Entity
 public class ApplicationUser implements UserDetails {
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     public long id;
     @Column(unique=true)
     public String username;
@@ -20,6 +21,9 @@ public class ApplicationUser implements UserDetails {
     public String fullName;
     public Date dateOfBirth;
     public String bio;
+
+    @OneToMany(mappedBy="appUser")
+    public Set<Post> posts;
 
     public ApplicationUser() {}
 
