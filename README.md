@@ -24,7 +24,7 @@ spring.jpq.hibernate.ddl-auto=create
 
 From the terminal, use command:
 
-`./gradlew bootrun`
+`./gradlew bootRun`
 
 
 ## Credits

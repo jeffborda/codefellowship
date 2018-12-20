@@ -19,7 +19,30 @@
         <li th:text="${user.bio}"></li>
     </ul>
 
-</form>
+    <!--Only display if the prinicple is on the one logged in-->
+    <h2>Make a New Post</h2>
+    <form action="/myProfile/newpost" method="POST">
+        <!--<label name="postBody" id="postBody">Post a Message</label>-->
+        <textarea name="postBody" id="postBody" class="text"></textarea>
+        <input type="submit" />
+    </form>
+
+    <table>
+        <tr>
+            <th>Date of Post</th>
+            <th>User</th>
+            <th>Post</th>
+        </tr>
+        <tr th:each="post : ${user.posts}">
+            <td th:text="${post.postDate}"></td>
+            <td th:text=""></td>
+            <td th:text="${post.body}"></td>
+        </tr>
+    </table>
+
+
+
+
 
 
 </body>
