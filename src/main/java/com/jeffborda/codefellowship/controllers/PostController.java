@@ -5,6 +5,7 @@ import com.jeffborda.codefellowship.ApplicationUserRepository;
 import com.jeffborda.codefellowship.Post;
 import com.jeffborda.codefellowship.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,7 +28,8 @@ public class PostController {
     public RedirectView createPost(@RequestParam String postBody, Principal p, Model m) {
 
         Post newPost = new Post(postBody, new Date());
-        newPost.appUser = appUserRepo.findByUsername(p.toString()); //This is questionable
+        ApplicationUser user = (ApplicationUser) ((UsernamePasswordAuthenticationToken) p).getPrincipal();
+        newPost.appUser = appUserRepo.findByUsername(user.username);
         postRepo.save(newPost);
         return new RedirectView("/myprofile");
     }

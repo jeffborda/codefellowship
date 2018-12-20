@@ -62,17 +62,18 @@ public class ApplicationUserController {
 
         ApplicationUser newUser = new ApplicationUser(username, bCryptPasswordEncoder.encode(password), firstName, lastName, dateOfBirth, bio);
         appUserRepo.save(newUser);
-
         Authentication authentication = new UsernamePasswordAuthenticationToken(newUser, null, new ArrayList<>());
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
-//        return new RedirectView("/users/" + newUser.id);
         return new RedirectView("/");
     }
 
     @GetMapping(value="/myprofile")
     public String showProfile(Principal p, Model m) {
-        m.addAttribute("user", ((UsernamePasswordAuthenticationToken) p).getPrincipal());
+        if(p != null) {
+            ApplicationUser user = (ApplicationUser) ((UsernamePasswordAuthenticationToken) p).getPrincipal();
+            m.addAttribute("user", appUserRepo.findById(user.id).get());
+        }
 
         return "profile";
     }
