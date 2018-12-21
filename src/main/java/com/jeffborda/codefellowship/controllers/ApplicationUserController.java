@@ -45,6 +45,7 @@ public class ApplicationUserController {
         return "login";
     }
 
+
     @RequestMapping(value="/signup", method=RequestMethod.GET)
     public String signUp() {
 
@@ -88,6 +89,12 @@ public class ApplicationUserController {
         }
         throw new ResourceNotFoundException();
 
+    }
+
+    @GetMapping(value="users/all")
+    public String showAllUsers(Model m) {
+        m.addAttribute("users", appUserRepo.findAll());
+        return "user-directory";
     }
 
 
