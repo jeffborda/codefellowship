@@ -45,6 +45,7 @@ public class ApplicationUserController {
         return "login";
     }
 
+
     @RequestMapping(value="/signup", method=RequestMethod.GET)
     public String signUp() {
 
@@ -71,6 +72,7 @@ public class ApplicationUserController {
     @GetMapping(value="/myprofile")
     public String showProfile(Principal p, Model m) {
         if(p != null) {
+            
             ApplicationUser user = (ApplicationUser) ((UsernamePasswordAuthenticationToken) p).getPrincipal();
             m.addAttribute("user", appUserRepo.findById(user.id).get());
         }
@@ -88,6 +90,12 @@ public class ApplicationUserController {
         }
         throw new ResourceNotFoundException();
 
+    }
+
+    @GetMapping(value="users/all")
+    public String showAllUsers(Model m) {
+        m.addAttribute("users", appUserRepo.findAll());
+        return "user-directory";
     }
 
 

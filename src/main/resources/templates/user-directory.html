@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html><!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>User Directory</title>
+    <div th:replace="~{common :: head}"></div>
+
+</head>
+<nav>
+    <div th:replace="common :: nav"></div>
+</nav>
+<body>
+<h1>User Directory</h1>
+
+
+<table class="table-bordered">
+    <tr>
+        <th>Name</th>
+        <th>Username</th>
+        <th>See Profile</th>
+    </tr>
+    <tr th:each="user : ${users}">
+        <td th:text="${user.fullName}"></td>
+        <td th:text="${user.username}"></td>
+        <td><a th:href="@{'/users/' + ${user.id}}">See Profile</a></td>
+        <!--<a th:href="@{'/user/' + ${user.id}}"></a>-->
+    </tr>
+</table>
+
+
+
+
+
+
+</body>
+</html>

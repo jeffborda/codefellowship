@@ -50,7 +50,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .anyRequest().authenticated()
                 .and()
                 .formLogin()
-                    .loginPage("/login.html")
+                    .loginPage("/login")
                     .loginProcessingUrl("/perform_login")
                     .defaultSuccessUrl("/myprofile", true)
                 //maybe make a bad login page with another login form
